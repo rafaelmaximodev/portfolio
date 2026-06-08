@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rafael Maximo | Desenvolvedor Web Premium</title>
+    <meta name="description" content="Criação de sites profissionais, modernos e responsivos para empresas que desejam fortalecer sua presença digital e conquistar mais clientes.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* ==========================================================================
+           RESET & VARIÁVEIS GERAIS (Padrão de Sistema de Design - Apple/Stripe)
+           ========================================================================== */
+        :root {
+            --bg-principal: #0B0F19;
+            --bg-secundario: #111827;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --borda-premium: rgba(255, 255, 255, 0.08);
+            --borda-hover: rgba(255, 255, 255, 0.16);
+            
+            --texto-primario: #F9FAFB;
+            --texto-secundario: #9CA3AF;
+            --texto-mutado: #6B7280;
+            
+            --accent-primary: #3B82F6;
+            --accent-glow: rgba(59, 130, 246, 0.15);
+            --gradiente-texto: linear-gradient(135deg, #FFFFFF 0%, #A5B4FC 100%);
+            
+            --transicao-suave: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --raio-card: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-principal);
+            color: var(--texto-primario);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Utilitários de Layout */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 140px 0;
+            position: relative;
+        }
+
+        /* Elementos de Brilho Abstrato (Efeito Webflow/Linear) */
+        .blur-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: var(--accent-glow);
+            filter: blur(120px);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Headings de Seções */
+        .secao-header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .secao-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-primary);
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .secao-titulo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: var(--gradiente-texto);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ==========================================================================
+           HEADER / NAVEGAÇÃO PREMIUM
+           ========================================================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(11, 15, 25, 0.7);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--borda-premium);
+            transition: var(--transicao-suave);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            transition: var(--transicao-suave);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.03em;
+            color: var(--texto-primario);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--accent-primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--texto-secundario);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transicao-suave);
+        }
+
+        .nav-link:hover {
+            color: var(--texto-primario);
+        }
+
+        .cta-nav {
+            background: var(--texto-primario);
+            color: var(--bg-principal);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transicao-suave);
+        }
+
+        .cta-nav:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* ==========================================================================
+           SEÇÃO HERO (Psicologia de Alto Impacto em < 5s)
+           ========================================================================== */
+        #hero {
+            padding-top: 220px;
+            padding-bottom: 140px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-conteudo {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-titulo {
+            font-size: 4.25rem;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.04em;
+            background: linear-gradient(180deg, #FFFFFF 0%, #C7D2FE 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+        }
+
+        .hero-subtitulo {
+            font-size: 1.25rem;
+            color: var(--texto-secundario);
+            max-width: 680px;
+            margin: 0 auto 40px auto;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .hero-botoes {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Botões Estilo Stripe/Linear */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: var(--transicao-suave);
+            cursor: pointer;
+        }
+
+        .btn-primario {
+            background: var(--accent-primary);
+            color: white;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primario:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secundario {
+            background: transparent;
+            color: var(--texto-primario);
+            border: 1px solid var(--borda-premium);
+        }
+
+        .btn-secundario:hover {
+            border-color: var(--borda-hover);
+            background: rgba(255, 255, 255, 0.02);
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================================================
+           SEÇÃO DE DIFERENCIAIS (Arquitetura de Conversão)
+           ========================================================================== */
+        .grid-diferenciais {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-diferencial {
+            background: var(--bg-card);
+            border: 1px solid var(--borda-premium);
+            border-radius: var(--raio-card);
+            padding: 40px;
+            transition: var(--transicao-suave);
+        }
+
+        .card-diferencial:hover {
+            border-color: var(--borda-hover);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .icone-wrapper {
+            width: 48px;
+            height: 48px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-primary);
+            margin-bottom: 24px;
+        }
+
+        .card-titulo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .card-descricao {
+            color: var(--texto-secundario);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           SEÇÃO DE PORTFÓLIO (Vitrine de Alto Valor - Corrigida contra transbordo)
+           ========================================================================== */
+        .grid-portfolio {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Mudado de 340px para 280px para prevenir quebra em telas pequenas */
+            gap: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-projeto {
+            background: var(--bg-card);
+            border: 1px solid var(--borda-premium);
+            border-radius: var(--raio-card);
+            overflow: hidden;
+            transition: var(--transicao-suave);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mockup-projeto {
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .projeto-info {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .projeto-nome {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .projeto-desc {
+            color: var(--texto-secundario);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--texto-primario);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transicao-suave);
+        }
+
+        .btn-link i {
+            transition: var(--transicao-suave);
+        }
+
+        .btn-link:hover {
+            color: var(--accent-primary);
+        }
+
+        .btn-link:hover i {
+            transform: translateX(4px);
+        }
+
+        .card-projeto:hover {
+            border-color: var(--borda-hover);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        /* ==========================================================================
+           SEÇÃO SOBRE (Construção de Autoridade)
+           ========================================================================== */
+        .sobre-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .sobre-texto {
+            font-size: 1.15rem;
+            color: var(--texto-secundario);
+            line-height: 1.7;
+        }
+
+        .sobre-texto strong {
+            color: var(--texto-primario);
+            font-weight: 600;
+        }
+
+        .sobre-grafico {
+            position: relative;
+            height: 350px;
+            border: 1px solid var(--borda-premium);
+            border-radius: var(--raio-card);
+            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.05), transparent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ==========================================================================
+           SEÇÃO DE PROCESSO (Eliminação de Objeções)
+           ========================================================================== */
+        .timeline-processo {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .etapa-processo {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--borda-premium);
+            padding: 32px 24px;
+            border-radius: var(--raio-card);
+            transition: var(--transicao-suave);
+        }
+
+        .etapa-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 16px;
+            opacity: 0.6;
+        }
+
+        .etapa-titulo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .etapa-desc {
+            font-size: 0.85rem;
+            color: var(--texto-secundario);
+        }
+
+        .etapa-processo:hover {
+            border-color: var(--borda-hover);
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================================================
+           SEÇÃO CTA (Conversão / Fechamento de Contrato)
+           ========================================================================== */
+        .cta-box {
+            background: linear-gradient(135deg, rgba(17, 24, 39, 0.8) 0%, rgba(11, 15, 25, 0.8) 100%);
+            border: 1px solid var(--borda-premium);
+            border-radius: 24px;
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-box .secao-titulo {
+            font-size: 3rem;
+            margin-bottom: 24px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ==========================================================================
+           RODAPÉ (Selo Final de Credibilidade)
+           ========================================================================== */
+        footer {
+            background: #070a10;
+            border-top: 1px solid var(--borda-premium);
+            padding: 60px 0 30px 0;
+            color: var(--texto-secundario);
+            font-size: 0.9rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-info h4 {
+            color: var(--texto-primario);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .footer-links-titulo {
+            color: var(--texto-primario);
+            font-weight: 600;
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--texto-secundario);
+            text-decoration: none;
+            transition: var(--transicao-suave);
+        }
+
+        .footer-links a:hover {
+            color: var(--texto-primario);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--texto-mutated);
+            color: var(--texto-mutado);
+        }
+
+        .footer-redes {
+            display: flex;
+            gap: 16px;
+        }
+
+        /* ==========================================================================
+           SISTEMA DE ANIMAÇÃO DE ENTRADA (Scroll Reveal Nascido do CSS)
+           ========================================================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==========================================================================
+           SISTEMA DE RESPONSIVIDADE EXTREMA (Otimizado e Adaptável)
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .hero-titulo { 
+                font-size: 3.25rem; 
+            }
+            .grid-diferenciais { 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            .timeline-processo { 
+                grid-template-columns: repeat(2, 1fr); /* Evita buracos visuais na grade de 5 etapas */
+                gap: 20px; 
+            }
+        }
+
+        @media (max-width: 768px) {
+            section { 
+                padding: 80px 0; 
+            }
+            
+            #hero { 
+                padding-top: 140px; 
+                padding-bottom: 60px; 
+            }
+            
+            .hero-titulo { 
+                font-size: 2.2rem; 
+                line-height: 1.2;
+            }
+            
+            .hero-subtitulo {
+                font-size: 1.1rem;
+                margin-bottom: 30px;
+            }
+
+            .hero-botoes {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .hero-botoes .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* Menu do topo otimizado para mobile (Não desaparece mais!) */
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: 15px 24px;
+                gap: 12px;
+            }
+
+            .nav-menu {
+                gap: 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-link {
+                font-size: 0.85rem;
+            }
+
+            .cta-nav {
+                padding: 6px 16px;
+                font-size: 0.8rem;
+            }
+
+            /* Transformação de Grades Multicolunas em Fluxos de Coluna Única */
+            .grid-diferenciais { 
+                grid-template-columns: 1fr; 
+                gap: 16px;
+            }
+            
+            .card-diferencial {
+                padding: 24px;
+            }
+
+            .grid-portfolio { 
+                grid-template-columns: 1fr; 
+            }
+
+            .sobre-wrapper { 
+                grid-template-columns: 1fr; 
+                gap: 40px; 
+            }
+            
+            .sobre-grafico {
+                height: 250px;
+            }
+
+            .timeline-processo { 
+                grid-template-columns: 1fr; 
+                gap: 16px;
+            }
+
+            .cta-box {
+                padding: 50px 20px;
+            }
+
+            .cta-box .secao-titulo {
+                font-size: 2rem;
+            }
+
+            .footer-grid { 
+                grid-template-columns: 1fr; 
+                gap: 32px; 
+            }
+
+            .footer-bottom { 
+                flex-direction: column; 
+                gap: 16px; 
+                text-align: center; 
+            }
+        }
+
+        /* Proteção para telas ultra compactas */
+        @media (max-width: 360px) {
+            .hero-titulo {
+                font-size: 1.9rem;
+            }
+            
+            .nav-menu {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">RAFAEL MAXIMO <span>.</span>DEV</a>
+            <ul class="nav-menu">
+                <li><a href="#diferenciais" class="nav-link">Diferenciais</a></li>
+                <li><a href="#portfolio" class="nav-link">Projetos</a></li>
+                <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                <li><a href="#processo" class="nav-link">Processo</a></li>
+            </ul>
+            <a href="#contato" class="cta-nav">Solicitar Orçamento</a>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="blur-glow" style="top: 10%; left: 25%;"></div>
+        <div class="container hero-conteudo">
+            <h1 class="hero-titulo">Transformo ideias em websites que geram resultados.</h1>
+            <p class="hero-subtitulo">Criação de sites profissionais, modernos e responsivos para empresas que desejam fortalecer sua presença digital e conquistar mais clientes.</p>
+            <div class="hero-botoes">
+                <a href="#portfolio" class="btn btn-primario">Ver Projetos <i data-lucide="arrow-right" style="width:16px;height:16px;"></i></a>
+                <a href="#contato" class="btn btn-secundario">Solicitar Orçamento</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="diferenciais" class="reveal">
+        <div class="container">
+            <div class="secao-header">
+                <span class="secao-tag">Vantagens Competitivas</span>
+                <h2 class="secao-titulo">Engenharia e Design Alinhados ao Seu Negócio</h2>
+            </div>
+            <div class="grid-diferenciais">
+                <div class="card-diferencial">
+                    <div class="icone-wrapper"><i data-lucide="layers"></i></div>
+                    <h3 class="card-titulo">Design moderno e profissional</h3>
+                    <p class="card-descricao">Interfaces exclusivas desenhadas sob medida para transmitir o real valor da sua marca ao mercado.</p>
+                </div>
+                <div class="card-diferencial">
+                    <div class="icone-wrapper"><i data-lucide="smartphone"></i></div>
+                    <h3 class="card-titulo">Totalmente responsivo</h3>
+                    <p class="card-descricao">Experiência impecável e fluida adaptada perfeitamente a smartphones, tablets e desktops.</p>
+                </div>
+                <div class="card-diferencial">
+                    <div class="icone-wrapper"><i data-lucide="zap"></i></div>
+                    <h3 class="card-titulo">Carregamento rápido</h3>
+                    <p class="card-descricao">Desenvolvimento focado em performance, garantindo que seu cliente não espere para ver sua oferta.</p>
+                </div>
+                <div class="card-diferencial">
+                    <div class="icone-wrapper"><i data-lucide="trending-up"></i></div>
+                    <h3 class="card-titulo">Foco em conversão</h3>
+                    <p class="card-descricao">Arquitetura de informação baseada em psicologia de vendas para transformar visitantes em leads.</p>
+                </div>
+                <div class="card-diferencial">
+                    <div class="icone-wrapper"><i data-lucide="smile"></i></div>
+                    <h3 class="card-titulo">Experiência otimizada</h3>
+                    <p class="card-descricao">Navegabilidade intuitiva que retém a atenção do usuário e facilita a tomada de decisão.</p>
+                </div>
+                <div class="card-diferencial">
+                    <div class="icone-wrapper"><i data-lucide="shield-check"></i></div>
+                    <h3 class="card-titulo">Suporte dedicado</h3>
+                    <p class="card-descricao">Acompanhamento próximo e transparente em todas as etapas, da concepção ao pós-lançamento.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="reveal">
+        <div class="blur-glow" style="bottom: 5%; right: 10%;"></div>
+        <div class="container">
+            <div class="secao-header">
+                <span class="secao-tag">PORTFÓLIO</span>
+                <h2 class="secao-titulo">Trabalhos Demonstrativos</h2>
+            </div>
+            
+            <div class="grid-portfolio">
+    
+                <div class="card-projeto">
+                    <div class="mockup-projeto">
+                        <img src="img/bellanona.png" alt="Landing Page BellaNona" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="projeto-info">
+                        <h3 class="projeto-nome">BellaNona</h3>
+                        <p class="projeto-desc">Landing Page para pizzaria focada em conversão.</p>
+                        <a href="https://quadstudio4.github.io/bellanona/" class="btn-link">Acesse Aqui <i data-lucide="arrow-up-right" style="width:16px;height:16px;"></i></a>
+                    </div>
+                </div>
+
+                <div class="card-projeto">
+                    <div class="mockup-projeto">
+                        <img src="img/burgerprime.png" alt="Landing Page Burger Prime" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="projeto-info">
+                        <h3 class="projeto-nome">Burger Prime</h3>
+                        <p class="projeto-desc">Landing page minimalista de alta conversão para Hamburgueria Gourmet.</p>
+                        <a href="https://quadstudio4.github.io/burgerprime/" class="btn-link">Acesse Aqui <i data-lucide="arrow-up-right" style="width:16px;height:16px;"></i></a>
+                    </div>
+                </div>
+
+                <div class="card-projeto">
+                    <div class="mockup-projeto">
+                        <img src="img/advogado.png" alt="Interface Quantum SaaS" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="projeto-info">
+                        <h3 class="projeto-nome">Rafael de Souza</h3>
+                        <p class="projeto-desc">Website para advogado, seguindo rigorosamente as diretrizes e regras dispostas no Código de Ética e Disciplina da OAB.</p>
+                        <a href="https://quadstudio4.github.io/rafaeldesouza/" class="btn-link">Acesse Aqui <i data-lucide="arrow-up-right" style="width:16px;height:16px;"></i></a>
+                    </div>
+                </div>
+
+                <div class="card-projeto">
+                    <div class="mockup-projeto">
+                        <img src="img/manicure.png" alt="Lumina E-Commerce" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="projeto-info">
+                        <h3 class="projeto-nome">BispoNails</h3>
+                        <p class="projeto-desc">Landing Page para Nail Designer de alta conversão</p>
+                        <a href="https://quadstudio4.github.io/bisponails/" class="btn-link">Acesse Aqui <i data-lucide="arrow-up-right" style="width:16px;height:16px;"></i></a>
+                    </div>
+                </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="reveal">
+        <div class="container">
+            <div class="sobre-wrapper">
+                <div>
+                    <span class="secao-tag">Sobre Mim</span>
+                    <h2 class="secao-titulo" style="margin-bottom: 24px; text-align: left;">Sólida experiência em engenharia digital.</h2>
+                    <p class="sobre-texto">
+                        Sou desenvolvedor web especializado na criação de sites modernos, rápidos e responsivos. Meu objetivo é ajudar empresas e profissionais a <strong>fortalecer sua presença digital através de websites que transmitem credibilidade, profissionalismo e confiança</strong>. Combinando código limpo, design intuitivo e estratégias de conversão, transformo suas necessidades comerciais em ativos digitais de alto rendimento.
+                    </p>
+                </div>
+                <div class="sobre-grafico">
+                    <div style="position: absolute; border: 1px solid rgba(255,255,255,0.05); width: 80%; height: 80%; border-radius: 50%; display:flex; align-items:center; justify-content:center;">
+                        <div style="border: 1px dashed rgba(59, 130, 246, 0.2); width: 70%; height: 70%; border-radius: 50%; display:flex; align-items:center; justify-content:center;">
+                            <i data-lucide="code-2" style="width:40px; height:40px; color: var(--accent-primary);"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="processo" class="reveal">
+        <div class="container">
+            <div class="secao-header">
+                <span class="secao-tag">Metodologia</span>
+                <h2 class="secao-titulo">Como Construímos Sua Presença Online</h2>
+            </div>
+            <div class="timeline-processo">
+                <div class="etapa-processo">
+                    <div class="etapa-num">01 / INVESTIGAÇÃO</div>
+                    <h3 class="etapa-titulo">Briefing</h3>
+                    <p class="etapa-desc">Alinhamento de objetivos comerciais e análise profunda de mercado.</p>
+                </div>
+                <div class="etapa-processo">
+                    <div class="etapa-num">02 / ARQUITETURA</div>
+                    <h3 class="etapa-titulo">Planejamento</h3>
+                    <p class="etapa-desc">Estruturação de wireframes e mapeamento da jornada do usuário.</p>
+                </div>
+                <div class="etapa-processo">
+                    <div class="etapa-num">03 / PRODUÇÃO</div>
+                    <h3 class="etapa-titulo">Desenvolvimento</h3>
+                    <p class="etapa-desc">Transformação do design em código limpo, rápido e otimizado para SEO.</p>
+                </div>
+                <div class="etapa-processo">
+                    <div class="etapa-num">04 / QUALIDADE</div>
+                    <h3 class="etapa-titulo">Revisões</h3>
+                    <p class="etapa-desc">Ajustes minuciosos e testes em múltiplos dispositivos e telas.</p>
+                </div>
+                <div class="etapa-processo">
+                    <div class="etapa-num">05 / SUCESSO</div>
+                    <h3 class="etapa-titulo">Entrega</h3>
+                    <p class="etapa-desc">Lançamento oficial do seu novo canal de aquisição de clientes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato" class="reveal">
+        <div class="container">
+            <div class="cta-box">
+                <div class="blur-glow" style="top: -50%; left: 30%;"></div>
+                <h2 class="secao-titulo">Pronto para ter um site profissional que valoriza sua empresa?</h2>
+                <p class="hero-subtitulo" style="margin-bottom: 32px;">Vamos construir juntos uma solução digital que transmita autoridade e impulsione seus resultados.</p>
+                <a href="https://wa.me/5519982105426" target="_blank" class="btn btn-primario" style="padding: 16px 40px; font-size: 1rem;">
+                    <i data-lucide="message-square"></i> Iniciar Projeto via WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <h4>RAFAELMAXIMO.DEV</h4>
+                    <p style="font-size: 0.85rem; color: var(--texto-mutado); max-width: 320px;">Desenvolvimento de interfaces digitais premium sob medida para marcas de alto valor.</p>
+                </div>
+                <div>
+                    <h5 class="footer-links-titulo">Serviços</h5>
+                    <ul class="footer-links">
+                        <li>Desenvolvedor Web</li>
+                        <li>UI/UX Design</li>
+                        <li>Otimização de Conversão</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="footer-links-titulo">Contato Direto</h5>
+                    <ul class="footer-links">
+                        <li><a href="mailto:rafaelmaximodev@gmail.com">rafaelmaximodev@gmail.com</a></li>
+                        <li><a href="https://wa.me/5519982105426">WhatsApp</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 RAFAELMAXIMO.DEV. Todos os direitos reservados. Interfaces de Alta Performance.</p>
+                <div class="footer-redes">
+                    <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" style="width:18px;height:18px;"></i></a>
+                    <a href="#" aria-label="GitHub"><i data-lucide="github" style="width:18px;height:18px;"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Inicializa os ícones do Lucide de forma otimizada
+        lucide.createIcons();
+
+        // Engine de Scroll Reveal (Animações suaves de entrada baseadas no viewport)
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 100; // Trigger de segurança para disparar a animação
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        // Execução inicial para elementos que já estão na tela ao carregar
+        window.addEventListener("load", reveal);
+    </script>
+</body>
+</html>
